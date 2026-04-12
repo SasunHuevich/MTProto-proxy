@@ -4,6 +4,7 @@ services:
   tg_proxy:
     image: telegrammessenger/proxy:latest
     container_name: tg_proxy
+    restart: always
     environment:
       SECRET: #READ README
     ports:

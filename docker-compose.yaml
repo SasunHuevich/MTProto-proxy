@@ -7,4 +7,4 @@ services:
     environment:
       SECRET: #READ README
     ports:
-      "443:443" 
+      - "443:443"

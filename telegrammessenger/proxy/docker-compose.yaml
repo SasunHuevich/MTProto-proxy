@@ -1,6 +1,6 @@
 services:
   tg_proxy:
-    image: telegrammessenger/proxy:latest
+    image: telegrammessenger/proxy:1.4
     container_name: tg_proxy
     restart: always
     environment:

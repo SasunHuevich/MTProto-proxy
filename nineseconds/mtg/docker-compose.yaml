@@ -1,0 +1,10 @@
+services:
+  mtg:
+    image: nineseconds/mtg:2
+    container_name: tg_proxy_mtg
+    restart: always
+    ports:
+      - "${PORT}:443"
+    volumes:
+      - ./config.toml:/config.toml
+    command: run /config.toml

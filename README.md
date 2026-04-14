@@ -2,10 +2,12 @@
 
 Простой способ поднять свой прокси для Telegram с помощью Docker.
 
-### Небходимые утитлиты
-- curl
-- xxd
-- docker
-- docker compose 
-
 ### Запуск и отсановка через скрипты
+
+### Актуальное
+
+- [nineseconds/mtg](nineseconds/mtg)
+
+### Устаревшее
+
+- [telegrammessenger/proxy](telegrammessenger/proxy) - Работает, но очень долго подключается.

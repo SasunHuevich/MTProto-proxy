@@ -1,0 +1,15 @@
+# Caddy держит настоящий сертификат Let's Encrypt и отдаёт всё в telemt.
+# Запросы без ключа telemt отвечает сайтом-заглушкой из site/.
+{
+	servers {
+		protocols h1 h2
+	}
+}
+
+{$DOMAIN} {
+	reverse_proxy telemt:18080 {
+		header_up X-Forwarded-For {remote_host}
+		flush_interval -1
+		stream_close_delay 5m
+	}
+}

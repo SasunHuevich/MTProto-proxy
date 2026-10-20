@@ -1,0 +1,39 @@
+services:
+  caddy:
+    image: caddy:2
+    container_name: tg_webproxy_caddy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DOMAIN=${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    networks:
+      webproxy:
+        ipv4_address: 172.30.77.10
+
+  telemt:
+    image: ghcr.io/telemt/telemt:3.5.14
+    container_name: tg_webproxy_telemt
+    restart: always
+    working_dir: /run/telemt
+    command: ["/etc/telemt/config.toml"]
+    volumes:
+      - ./config:/etc/telemt:ro
+      - ./site:/srv/site:ro
+    tmpfs:
+      - /run/telemt:rw,mode=1777,size=4m
+    networks:
+      - webproxy
+
+networks:
+  webproxy:
+    ipam:
+      config:
+        - subnet: 172.30.77.0/24
+
+volumes:
+  caddy_data:

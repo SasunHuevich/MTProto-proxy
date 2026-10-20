@@ -1,0 +1,31 @@
+services:
+  caddy:
+    image: caddy:2
+    container_name: tg_proxy_caddy
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      - DOMAIN=${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./site:/srv:ro
+      - caddy_data:/data
+
+  telemt:
+    image: ghcr.io/telemt/telemt:3.5.14
+    container_name: tg_proxy_telemt
+    restart: always
+    depends_on:
+      - caddy
+    ports:
+      - "${PORT}:443"
+    working_dir: /run/telemt
+    command: ["/etc/telemt/config.toml"]
+    volumes:
+      - ./config:/etc/telemt:ro
+    tmpfs:
+      - /run/telemt:rw,mode=1777,size=4m
+
+volumes:
+  caddy_data:

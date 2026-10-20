@@ -1,0 +1,16 @@
+# Сайт-заглушка: его видят все, кто пришёл на домен не с ключом прокси.
+# Сертификат Let's Encrypt выпускается автоматически (нужен открытый 80 порт).
+{
+	http_port 80
+	https_port 8443
+	auto_https disable_redirects
+}
+
+http://{$DOMAIN} {
+	redir https://{host}{uri} permanent
+}
+
+https://{$DOMAIN} {
+	root * /srv
+	file_server
+}
